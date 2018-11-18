@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Todo App</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/axios.min.js"></script>
+	<!-- версия для разработки, отображает полезные предупреждения в консоли -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- production-версия, оптимизированная для размера и скорости
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+</head>
+<body class="bg-dark">
+	<div id="app" class="container">
+		<nav class="py-2 navbar navbar-dark bg-dark fixed-top border-bottom border-secondary justify-content-center">
+			<form v-on:submit.prevent="addNewTodo">
+				<div class="my-0 form-group text-center">
+					<label for="new-todo" class="text-light">Add new task </label>
+					<input id="new-todo" 
+						   placeholder= "e.g. do homework"
+						   v-model= "newTodoText"
+						   class="form-control-sm ">
+					<button v-bind:disabled="newTodoText.trim() == ''" class="btn btn-primary">Add</button>
+				</div>
+			</form>
+		</nav>
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6">
+				<ol class="list-group">
+					<li
+						is="todo-item" 
+						v-for="(todo, index) in todos"
+						v-bind:key="todo.id"
+						v-bind:title="todo.title"
+						v-bind:id="todo.id"
+						v-on:remove="todos.splice(index, 1)"
+						class="m-2 p-2 list-group-item text-light bg-secondary rounded">
+					</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<script src="js/index.js"></script>
+</body>
+</html>
